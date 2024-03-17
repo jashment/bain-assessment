@@ -8,7 +8,7 @@ const Home = () => {
           <h1 className="text-3xl font-light">Distance Calculator</h1>
           <p className="text-[#4B4949]">Prototype web application for calculating the distance between addresses.</p>
         </div>
-        <div className="basis-2/6 w-1/2">
+        <div className="basis-2/6 md:w-1/2">
           <StyledHistoryButton>
             <p>View Historical Queries</p>
             <div>
@@ -22,11 +22,26 @@ const Home = () => {
       </StyledHeader>
       <CalculatorContainer>
         <StyledInputContainer1>
-          <StyledInput1 />
-          <button>Calculate distance</button>
+          <div>
+            <p className="text-xs">Source Address</p>
+            <StyledInput type="text" placeholder="Input address" />
+          </div>
+          <StyledCalculateButton>
+            <p>Calculate distance</p>
+            <div>
+              <svg xmlns="http://www.w3.org/2000/svg" enableBackground="new 0 0 24 24" height="24px" viewBox="0 0 24 24" width="24px" fill="#7D7D7C">
+                <g>
+                  <rect fill="none" height="24" width="24" /></g>
+                <g>
+                  <path d="M19,3H5C3.9,3,3,3.9,3,5v14c0,1.1,0.9,2,2,2h14c1.1,0,2-0.9,2-2V5C21,3.9,20.1,3,19,3z M13.03,7.06L14.09,6l1.41,1.41 L16.91,6l1.06,1.06l-1.41,1.41l1.41,1.41l-1.06,1.06L15.5,9.54l-1.41,1.41l-1.06-1.06l1.41-1.41L13.03,7.06z M6.25,7.72h5v1.5h-5 V7.72z M11.5,16h-2v2H8v-2H6v-1.5h2v-2h1.5v2h2V16z M18,17.25h-5v-1.5h5V17.25z M18,14.75h-5v-1.5h5V14.75z" />
+                </g>
+              </svg>
+            </div>
+          </StyledCalculateButton>
         </StyledInputContainer1>
         <StyledInputContainer2>
-          <StyledInput2 />
+          <p className="text-xs">Destination Address</p>
+          <StyledInput type="text" placeholder="Input address" />
         </StyledInputContainer2>
         <StyledUnitSelector>Unit</StyledUnitSelector>
         <StyledOutput>Distance</StyledOutput>
@@ -40,7 +55,7 @@ const StyledHome = tw.div`
   flex-col
   h-screen
   px-8
-  bg-[f8f8f6]
+  bg-[#f8f8f6]
 `
 
 const StyledHeader = tw.div`
@@ -48,6 +63,7 @@ const StyledHeader = tw.div`
   flex-col
   md:flex-row
   py-4
+  px-4
   w-full
   justify-between
 `
@@ -60,49 +76,57 @@ const StyledHistoryButton = tw.button`
   gap-8
   bg-[#313030ff]
   text-white
+  my-2
+`
+
+const StyledCalculateButton = tw.button`
+  px-3
+  py-[13px]
+  flex
+  flex-row
+  gap-8
+  bg-[#bbbbb9]
+  text-[#7D7D7C]
+  self-start
+  left-0
 `
 
 const CalculatorContainer = tw.div`
   flex
   flex-row
   gap-8
-  h-10
   bg-white
   p-4
+  h-56
 `
 
 const StyledInputContainer1 = tw.div`
-  flex
+flex
   flex-col
   basis-2/6
-  h-max
+  h-full
+  justify-between
 `
 
-const StyledInput1 = tw.input`
+const StyledInput = tw.input`
   border-b
   border-[#7D7D7C]
   bg-[#f8f8f6]
+  w-full
+  px-[11px]
+  py-4
 `
 
 const StyledInputContainer2 = tw.div`
-  flex
   basis-2/6
   h-max
 `
 
-const StyledInput2 = tw.input`
-  border-b
-  border-[#7D7D7C]
-  bg-[#f8f8f6]
-`
-
 const StyledUnitSelector = tw.div`
-  flex
   basis-1/6
 `
 
 const StyledOutput = tw.div`
-  flex
   basis-1/6
 `
 
