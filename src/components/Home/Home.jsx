@@ -1,6 +1,18 @@
-import tw from "tailwind-styled-components"
+import { useState } from 'react'
+import tw from 'tailwind-styled-components'
+import axios from 'axios'
 
 const Home = () => {
+  const [sourceAddress, setSourceAddress] = useState('')
+  const [destinationAddress, setDestinationAddress] = useState('')
+  const [unit, setUnit] = useState("mi")
+  const [distance, setDistance] = useState({})
+
+  const calculateTotalDistance = async () => {
+    const calculatedDistance = await axios.post('http://localhost:3000/calculate-distance', { sourceAddress, destinationAddress, unit })
+    setDistance(calculatedDistance.data)
+  }
+
   return (
     <StyledHome>
       <StyledHeader>
@@ -24,9 +36,14 @@ const Home = () => {
         <StyledInputContainer1>
           <div>
             <p className="text-xs">Source Address</p>
-            <StyledInput type="text" placeholder="Input address" />
+            <StyledInput
+              type="text"
+              placeholder="Input address"
+              value={sourceAddress}
+              onChange={(e) => setSourceAddress(e.target.value)}
+            />
           </div>
-          <StyledCalculateButton>
+          <StyledCalculateButton onClick={calculateTotalDistance}>
             <p>Calculate distance</p>
             <div>
               <svg xmlns="http://www.w3.org/2000/svg" enableBackground="new 0 0 24 24" height="24px" viewBox="0 0 24 24" width="24px" fill="#7D7D7C">
@@ -41,10 +58,53 @@ const Home = () => {
         </StyledInputContainer1>
         <StyledInputContainer2>
           <p className="text-xs">Destination Address</p>
-          <StyledInput type="text" placeholder="Input address" />
+          <StyledInput
+            type="text"
+            placeholder="Input address"
+            value={destinationAddress}
+            onChange={(e) => setDestinationAddress(e.target.value)}
+          />
         </StyledInputContainer2>
-        <StyledUnitSelector>Unit</StyledUnitSelector>
-        <StyledOutput>Distance</StyledOutput>
+        <StyledUnitSelector>
+          <p className="text-xs">Unit</p>
+          <StyledUnitLabel>
+            <StyledRadioSelector
+              type="radio"
+              name="unit"
+              value="miles"
+              checked={unit === "mi"}
+              onChange={() => setUnit("mi")}
+            />
+            <StyledSelectorText>Miles</StyledSelectorText>
+          </StyledUnitLabel>
+          <StyledUnitLabel>
+            <StyledRadioSelector
+              type="radio"
+              name="unit"
+              value="kilometers"
+              checked={unit === "km"}
+              onChange={() => setUnit("km")}
+            />
+            <StyledSelectorText>Kilometers</StyledSelectorText>
+          </StyledUnitLabel>
+          <StyledUnitLabel>
+            <StyledRadioSelector
+              type="radio"
+              name="unit"
+              value="meters"
+              checked={unit === "both"}
+              onChange={() => setUnit("both")}
+            />
+            <StyledSelectorText>Both</StyledSelectorText>
+          </StyledUnitLabel>
+        </StyledUnitSelector>
+        <StyledOutput>
+          <p className="text-xs">Distance</p>
+          <StyledDistanceContainer>
+            {distance.mi && <StyledDistanceUnit>{distance.mi} mi</StyledDistanceUnit>}
+            {distance.km && <StyledDistanceUnit>{distance.km} km</StyledDistanceUnit>}
+          </StyledDistanceContainer>
+        </StyledOutput>
       </CalculatorContainer>
     </StyledHome>
   )
@@ -93,11 +153,13 @@ const StyledCalculateButton = tw.button`
 
 const CalculatorContainer = tw.div`
   flex
-  flex-row
+  flex-col
+  md:flex-row
   gap-8
   bg-white
   p-4
-  h-56
+  h-full
+  md:h-56
 `
 
 const StyledInputContainer1 = tw.div`
@@ -123,11 +185,41 @@ const StyledInputContainer2 = tw.div`
 `
 
 const StyledUnitSelector = tw.div`
+  flex
+  flex-col
   basis-1/6
+`
+
+const StyledUnitLabel = tw.label`
+  inline-flex 
+  items-center 
+  mt-3
+`
+
+const StyledRadioSelector = tw.input`
+  form-radio
+  h-4 w-4
+  accent-black
+`
+
+const StyledSelectorText = tw.span`
+  ml-2
+  text-gray-700
+  text-sm
 `
 
 const StyledOutput = tw.div`
   basis-1/6
+`
+
+const StyledDistanceContainer = tw.div`
+  flex 
+  flex-row 
+  gap-4
+`
+
+const StyledDistanceUnit = tw.p`
+  text-sm
 `
 
 export default Home
