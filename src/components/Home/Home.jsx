@@ -1,6 +1,9 @@
 import { useState } from 'react'
 import tw from 'tailwind-styled-components'
 import axios from 'axios'
+import { toast } from 'react-toastify'
+
+import 'react-toastify/dist/ReactToastify.css'
 
 const Home = () => {
   const [sourceAddress, setSourceAddress] = useState('')
@@ -8,8 +11,25 @@ const Home = () => {
   const [unit, setUnit] = useState("mi")
   const [distance, setDistance] = useState({})
 
-  const calculateTotalDistance = async () => {
-    const calculatedDistance = await axios.post('http://localhost:3000/calculate-distance', { sourceAddress, destinationAddress, unit })
+  const StyledCalculateButton = tw.button`
+    px-3
+    py-[13px]
+    flex
+    flex-row
+    gap-8
+    ${() => !sourceAddress || !destinationAddress ? 'bg-[#bbbbb9] text-[#7D7D7C]' : 'bg-[#d10001] text-white'}
+    
+    self-start
+    left-0
+`
+
+  const getTotalDistance = async () => {
+    const calculatedDistance = await toast.promise(axios.post('http://localhost:3000/calculate-distance', { sourceAddress, destinationAddress, unit }), {
+      pending: 'Calculating distance...',
+      success: 'Distance calculated successfully',
+      error: 'Error calculating distance',
+      position: 'bottom-left',
+    })
     setDistance(calculatedDistance.data)
   }
 
@@ -26,10 +46,14 @@ const Home = () => {
               onChange={(e) => setSourceAddress(e.target.value)}
             />
           </div>
-          <StyledCalculateButton onClick={calculateTotalDistance}>
+          <StyledCalculateButton
+            disabled={!sourceAddress || !destinationAddress}
+            type="button"
+            onClick={getTotalDistance}
+          >
             <p>Calculate distance</p>
             <div>
-              <svg xmlns="http://www.w3.org/2000/svg" enableBackground="new 0 0 24 24" height="24px" viewBox="0 0 24 24" width="24px" fill="#7D7D7C">
+              <svg xmlns="http://www.w3.org/2000/svg" enableBackground="new 0 0 24 24" height="24px" viewBox="0 0 24 24" width="24px" fill={!sourceAddress || !destinationAddress ? '#7D7D7C' : '#ffffff'}>
                 <g>
                   <rect fill="none" height="24" width="24" /></g>
                 <g>
@@ -96,21 +120,9 @@ const Home = () => {
 const StyledHome = tw.div`
   flex
   flex-col
-  h-screen
   px-8
+  pb-8
   bg-[#f8f8f6]
-`
-
-const StyledCalculateButton = tw.button`
-  px-3
-  py-[13px]
-  flex
-  flex-row
-  gap-8
-  bg-[#bbbbb9]
-  text-[#7D7D7C]
-  self-start
-  left-0
 `
 
 const CalculatorContainer = tw.div`
@@ -120,7 +132,7 @@ const CalculatorContainer = tw.div`
   gap-8
   bg-white
   p-4
-  h-full
+  h-fit
   md:h-56
 `
 
