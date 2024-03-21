@@ -1,16 +1,26 @@
 import { useEffect, useState } from 'react'
 import tw from "tailwind-styled-components"
 import axios from 'axios'
+import { toast } from 'react-toastify'
 
 const History = () => {
   const [historicalQueries, setHistoricalQueries] = useState([])
-
+  // const toastId = useRef(0)
+  
   useEffect(() => {
-    const getHistoricalQueries = async () => {
-      const allHistoricalQueries = await axios.get('http://localhost:3000/historical-queries')
+  const getHistoricalQueries = async () => {
+    try {
+      const allHistoricalQueries = await toast.promise(axios.get(`${import.meta.env.REACT_APP_BACKEND_BASE_URL}/historical-queries`), {
+        pending: 'Fetching historical queries...',
+        success: 'Historical queries fetched successfully',
+        error: 'Error fetching historical queries',
+      })
       setHistoricalQueries(allHistoricalQueries.data)
+    } catch (error) {
+      console.error(error)
     }
-    getHistoricalQueries()
+  }
+getHistoricalQueries()
   }, [])
   
 

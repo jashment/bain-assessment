@@ -24,13 +24,16 @@ const Home = () => {
 `
 
   const getTotalDistance = async () => {
-    const calculatedDistance = await toast.promise(axios.post('http://localhost:3000/calculate-distance', { sourceAddress, destinationAddress, unit }), {
-      pending: 'Calculating distance...',
-      success: 'Distance calculated successfully',
-      error: 'Error calculating distance',
-      position: 'bottom-left',
-    })
-    setDistance(calculatedDistance.data)
+    try {
+      const calculatedDistance = await toast.promise(axios.post(`${import.meta.env.REACT_APP_BACKEND_BASE_URL}/calculate-distance`, { sourceAddress, destinationAddress, unit }), {
+        pending: 'Calculating distance...',
+        success: 'Distance calculated successfully',
+        error: 'Error calculating distance',
+      })
+      setDistance(calculatedDistance.data)
+    } catch (error) {
+      console.error(error)
+    }
   }
 
   return (
