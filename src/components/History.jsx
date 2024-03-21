@@ -10,7 +10,7 @@ const History = () => {
   useEffect(() => {
   const getHistoricalQueries = async () => {
     try {
-      const allHistoricalQueries = await toast.promise(axios.get(`${import.meta.env.REACT_APP_BACKEND_BASE_URL}/historical-queries`), {
+      const allHistoricalQueries = await toast.promise(axios.get(`${import.meta.env.VITE_BACKEND_BASE_URL}/historical-queries`), {
         pending: 'Fetching historical queries...',
         success: 'Historical queries fetched successfully',
         error: 'Error fetching historical queries',

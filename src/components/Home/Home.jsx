@@ -25,7 +25,7 @@ const Home = () => {
 
   const getTotalDistance = async () => {
     try {
-      const calculatedDistance = await toast.promise(axios.post(`${import.meta.env.REACT_APP_BACKEND_BASE_URL}/calculate-distance`, { sourceAddress, destinationAddress, unit }), {
+      const calculatedDistance = await toast.promise(axios.post(`${import.meta.env.VITE_BACKEND_BASE_URL}/calculate-distance`, { sourceAddress, destinationAddress, unit }), {
         pending: 'Calculating distance...',
         success: 'Distance calculated successfully',
         error: 'Error calculating distance',
