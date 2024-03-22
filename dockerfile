@@ -1,0 +1,15 @@
+FROM node:18 AS build
+
+WORKDIR /app
+
+COPY . .
+
+RUN npm install
+
+ARG VITE_BACKEND_BASE_URL
+
+ENV VITE_BACKEND_BASE_URL=$VITE_BACKEND_BASE_URL
+
+EXPOSE 5173
+
+CMD ["npm", "run", "dev"]

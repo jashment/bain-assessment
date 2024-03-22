@@ -1,8 +1,19 @@
-# React + Vite
+# Bain Technical Assessment
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## To Run locally
 
-Currently, two official plugins are available:
+.env file
+```
+VITE_BACKEND_BASE_URL=http://localhost:3000
+```
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## To run with Docker
+
+In your terminal, run the following command to build the container.
+```
+docker build -t bain-assessment:latest .
+```
+then, to run the container:
+```
+docker run -it -p 5173:5173 -e VITE_BACKEND_BASE_URL=http://localhost:3000 bain-assessment:latest
+```
