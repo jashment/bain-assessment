@@ -5,7 +5,10 @@
 .Toastify__toast-theme--light.Toastify__toast--error {
   background-color: #fff9ed;
   border-radius: 0%;
-  border-left: solid #d10001;
+  border-left: solid #d10001 3px;
+  border-right: solid #d10001 1px;
+  border-top: solid #d10001 1px;
+  border-bottom: solid #d10001 1px;
 }
 
 .Toastify__progress-bar--error {

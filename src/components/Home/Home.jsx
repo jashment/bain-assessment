@@ -28,7 +28,14 @@ const Home = () => {
       const calculatedDistance = await toast.promise(axios.post(`${import.meta.env.VITE_BACKEND_BASE_URL}/calculate-distance`, { sourceAddress, destinationAddress, unit }), {
         pending: 'Calculating distance...',
         success: 'Distance calculated successfully!',
-        error: 'Calculation failed. Something went wrong and the calculation failed.',
+        error: {
+          render() {
+            return <div>
+              <h3 className='font-bold'>Calculation failed</h3>
+              <p>Something went wrong and the calculation failed.</p>
+            </div>
+          }
+        },
         toastStyle: { background: '#fff9ed', color: '#ffffff' }
       })
       setDistance(calculatedDistance.data)
