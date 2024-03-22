@@ -1,3 +1,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.Toastify__toast-theme--light.Toastify__toast--error {
+  background-color: #fff9ed;
+  border-radius: 0%;
+  border-left: solid #d10001;
+}
+
+.Toastify__progress-bar--error {
+  border-radius: 0%;
+}
