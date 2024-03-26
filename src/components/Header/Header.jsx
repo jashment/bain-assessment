@@ -10,7 +10,7 @@ const Header = () => {
         <h1 className="text-3xl font-light">Distance Calculator</h1>
         <p className="text-[#4B4949]">Prototype web application for calculating the distance between addresses.</p>
       </div>
-      <div className="basis-2/6 md:w-1/2">
+      <div className=" flex basis-2/6 md:w-1/2 md:justify-end">
         {location.pathname === "/" ?
           <Link to="/history">
             <StyledHistoryButton>
