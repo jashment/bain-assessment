@@ -1,5 +1,12 @@
 import { useEffect, useState } from 'react'
-import tw from "tailwind-styled-components"
+import {
+  StyledHistoryContainer,
+  StyledHistoricalQueriesContainer,
+  StyledQueryDisplayHeader,
+  StyledColumnTitle,
+  StyledQueryDisplay,
+  StyledQueryData
+} from '../StyledComponents/History'
 import axios from 'axios'
 import { toast } from 'react-toastify'
 
@@ -23,7 +30,6 @@ const History = () => {
 getHistoricalQueries()
   }, [])
   
-
   return (
     <StyledHistoryContainer>
       <StyledHistoricalQueriesContainer>
@@ -57,48 +63,5 @@ getHistoricalQueries()
     </StyledHistoryContainer>
   )
 }
-
-const StyledHistoryContainer = tw.div`
-  flex
-  flex-col
-  h-screen
-  px-8
-  bg-[#f8f8f6]
-  text-xs
-  md:text-base
-`
-
-const StyledHistoricalQueriesContainer = tw.div`
-  flex
-  flex-col
-  bg-white
-  p-4
-
-`
-
-const StyledQueryDisplayHeader = tw.div`
-  flex
-  flex-row
-  bg-[#e0e0de]
-  px-4
-  py-[11px]
-  font-semibold
-`
-const StyledQueryDisplay = tw.div`
-  flex
-  flex-row
-  bg-white
-  p-2
-  border-t
-  bg-[#f8f8f6]
-`
-
-const StyledColumnTitle = tw.p`
-  basis-1/4
-`
-
-const StyledQueryData = tw.p`
-  basis-1/4
-`
 
 export default History
