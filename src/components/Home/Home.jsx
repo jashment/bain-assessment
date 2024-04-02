@@ -32,8 +32,6 @@ const Home = () => {
         throw new Error("Source and destination addresses are required.")
       }
 
-      const addressParsed = sourceAddress.split(",")
-      console.log(addressParsed)
       const calculatedDistance = await toast.promise(axios.post(`${import.meta.env.VITE_BACKEND_BASE_URL}/calculate-distance`, { sourceAddress, destinationAddress, unit }), {
         pending: 'Calculating distance...',
         success: 'Distance calculated successfully!',
