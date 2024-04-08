@@ -6,7 +6,7 @@ import {
   StyledColumnTitle,
   StyledQueryDisplay,
   StyledQueryData
-} from '../StyledComponents/History'
+} from '../TWStyledComponents/History'
 import axios from 'axios'
 import { toast } from 'react-toastify'
 

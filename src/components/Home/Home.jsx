@@ -15,7 +15,7 @@ import {
   StyledSelectorText,
   StyledUnitLabel,
   StyledUnitSelector,
-} from '../StyledComponents/Home'
+} from '../TWStyledComponents/Home'
 import { CalculatorIcon } from '../../assets/icons'
 
 import 'react-toastify/dist/ReactToastify.css'
@@ -45,6 +45,12 @@ const Home = () => {
         },
         toastStyle: { background: '#fff9ed', color: '#ffffff' }
       })
+
+      if (!calculatedDistance.data) {
+        throw new Error("No data returned from the server.")
+      } else if (calculatedDistance.data.status !== 200) {
+        throw new Error(calculatedDistance.data.message)
+      }
 
       setDistance(calculatedDistance.data)
     } catch (error) {

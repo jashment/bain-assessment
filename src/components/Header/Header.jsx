@@ -2,7 +2,7 @@ import {
   StyledHeader,
   StyledHistoryButton,
   StyledCalculatorButton
-} from '../StyledComponents/Header'
+} from '../TWStyledComponents/Header'
 import { CalculatorIcon, HistoryIcon } from '../../assets/icons'
 import { useLocation, Link } from 'react-router-dom'
 
